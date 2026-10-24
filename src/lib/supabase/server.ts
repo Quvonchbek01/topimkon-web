@@ -11,7 +11,7 @@ export function createClient() {
     {
       cookies: {
         getAll: () => cookieStore.getAll(),
-        setAll: (items: { name: string; value: string; options?: any }[]) => {
+        setAll: (items: { name: string; value: string; options?: import('@supabase/ssr').CookieOptions }[]) => {
           try {
             items.forEach(({ name, value, options }) => cookieStore.set(name, value, options));
           } catch {
