@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Palitra: yangi och yashil + iliq krem. RGB uchliklari (Tailwind alpha bilan ishlashi uchun). */
+/* TopImkon prototip palitrasi: navy, yashil va neytral fon. */
+:root {
+  --ink: 16 35 63; /* #10233f */
+  --brand: 22 163 106; /* #16a36a */
+  --brand-dark: 15 116 76; /* kontrastli yashil matn */
+  --brand-soft: 226 246 237;
+  --surface: 247 249 251; /* #f7f9fb */
+  --card: 255 255 255;
+  --tint: 241 245 249;
+  --butter: 255 246 224;
+  --line: 229 233 239; /* #e5e9ef */
+  --muted: 86 101 121;
+  --amber: 201 130 0; /* #c98200 */
+  --danger: 194 65 65; /* #c24141 */
+  color-scheme: light;
+}
+
+.dark {
+  --ink: 231 238 248;
+  --brand: 46 190 132;
+  --brand-dark: 88 218 160;
+  --brand-soft: 20 55 42;
+  --surface: 12 22 38;
+  --card: 19 32 51;
+  --tint: 23 38 59;
+  --butter: 65 52 25;
+  --line: 43 58 79;
+  --muted: 164 178 198;
+  --amber: 232 164 32;
+  --danger: 235 100 100;
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-surface text-ink antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--brand-dark));
+  outline-offset: 2px;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-card;
+  }
+  .badge {
+    @apply inline-block rounded-full bg-brand-soft px-2.5 py-1 text-xs font-extrabold text-brand-dark;
+  }
+  .badge-sample {
+    @apply inline-block rounded-full bg-butter px-2.5 py-1 text-xs font-extrabold text-ink;
+  }
+  .badge-expired {
+    @apply inline-block rounded-full bg-danger/15 px-2.5 py-1 text-xs font-extrabold text-danger;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line bg-card px-3.5 py-2 text-sm font-semibold transition hover:border-brand hover:bg-brand-soft;
+  }
+  .chip-on {
+    @apply border-brand bg-brand-soft text-brand-dark;
+  }
+  .meta {
+    @apply rounded-lg bg-tint px-2.5 py-1 text-xs text-muted;
+  }
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold transition;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-ink hover:brightness-95;
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-card hover:border-brand;
+  }
+  .input {
+    @apply min-h-[44px] w-full rounded-xl border border-line bg-card px-4 text-base outline-none focus:border-brand-dark;
+  }
+  .sheet-in {
+    animation: sheet-in 0.22s ease-out;
+  }
+  .skeleton {
+    @apply animate-pulse rounded-xl bg-line/70;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

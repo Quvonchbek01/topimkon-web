@@ -1,0 +1,42 @@
+name: TopImkon CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, typecheck, unit tests and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository'ni olish
+        uses: actions/checkout@v4
+      - name: Node.js o‘rnatish
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Bog‘liqliklarni o‘rnatish
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: TypeScript tekshiruvi
+        run: npm run typecheck
+      - name: Unit testlar
+        run: npm test
+      - name: Production build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.invalid
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: ci-placeholder-server-only-key
